@@ -12,8 +12,7 @@ class Model(object):
                  num_classes=256,
                  num_blocks=2,
                  num_layers=14,
-                 num_hidden=128,
-                 gpu_fraction=1.0):
+                 num_hidden=128,):
         
         self.num_time_samples = num_time_samples
         self.num_channels = num_channels
@@ -21,7 +20,6 @@ class Model(object):
         self.num_blocks = num_blocks
         self.num_layers = num_layers
         self.num_hidden = num_hidden
-        self.gpu_fraction = gpu_fraction
         
         inputs = tf.placeholder(tf.float32,
                                 shape=(None, num_time_samples, num_channels))
@@ -49,9 +47,7 @@ class Model(object):
 
         train_step = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
 
-        gpu_options = tf.GPUOptions(
-            per_process_gpu_memory_fraction=gpu_fraction)
-        sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+        sess = tf.Session()
         sess.run(tf.initialize_all_variables())
 
         self.inputs = inputs

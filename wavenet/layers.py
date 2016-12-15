@@ -94,6 +94,7 @@ def conv1d(inputs,
                            w,
                            stride=stride,
                            padding=padding,
+                           use_cudnn_on_gpu=False,
                            data_format=data_format)
 
     if bias:
